@@ -54,6 +54,12 @@
   inset: 10pt, radius: 4pt, width: 100%,
 )[#body]
 
+// ─── pdfpc 配置 ───────────────────────────────────────────────────────────────
+#pdfpc.config(
+  duration-minutes: 25,
+  note-font-size: 14,
+)
+
 // ══════════════════════════════════════════════════════════════════════════════
 #title-slide()
 
@@ -98,6 +104,11 @@ $ Q(f, f) = integral_(RR^3) integral_(S^2)
 
 #note[碰后速度 $bold(v)', bold(v)'_*$ 由弹性碰撞守恒律确定；$B >= 0$ 为碰撞截面，依赖相对速度与偏折角 $theta$。]
 
+#speaker-note[
+  Stosszahlansatz（分子混沌假设）：碰前两粒子速度统计独立，$f^{(2)} = f \otimes f$。
+  这是唯一的非可逆来源——方程本身是时间对称的，但这一假设破坏时间反演对称性。
+]
+
 == H 定理与熵增
 
 定义 #kw[H 函数]：
@@ -115,6 +126,12 @@ $ f_0(bold(v)) = n lr((frac(m, 2 pi k_B T)))^(3 slash 2)
   exp lr([ -frac(m abs(bold(v) - bold(u))^2, 2 k_B T) ]) $
 
 #note[$H$ 定理给出热力学第二定律的动理论根基：$S = -k_B H$；$H$ 减少即熵增。]
+
+#speaker-note[
+  证明关键：将 $Q(f,f)$ 写成对称形式，利用 $(a-b)(\ln a - \ln b) \geq 0$ 对任意正实数成立。
+  Loschmidt 悖论：微观方程时间可逆，宏观熵增从何而来？答案正是 Stosszahlansatz 破坏了时间对称。
+  Boltzmann 在争论中曾说："Go ahead, reverse them!"
+]
 
 // ══════════════════════════════════════════════════════════════════════════════
 = Markov 过程与 Master 方程
@@ -163,6 +180,12 @@ $ W(x | y) P_"eq"(y) = W(y | x) P_"eq"(x) $
 
 #note[对应 Boltzmann 方程 $Q = 0$，即 $f' f'_* = f f_*$（微可逆性）。]
 
+#speaker-note[
+  离散状态版本：$partial_t P_n = sum_m (W_(n m) P_m - W_(m n) P_n)$。
+  Chapman–Kolmogorov 是 Markov 性质的直接推论：对中间时刻积分/求和即得。
+  连续时间极限 $Delta t -> 0$ 给出 Master 方程。
+]
+
 // ══════════════════════════════════════════════════════════════════════════════
 = Fokker–Planck 方程
 
@@ -204,6 +227,12 @@ $ pdv(P, t) = -pdv(J, x), quad quad
   J = mu P - frac(1, 2) pdv(, x)(D P) $
 
 #note[平衡态 $J equiv 0$（细致平衡）。]
+
+#speaker-note[
+  Pawula 定理保证截断合法性——不会出现"截断到2阶但实际需要3阶"的情况。
+  $a^((1))$ = 漂移（均值变化率），$a^((2))$ = 扩散（方差变化率）。
+  Pawula 定理本质：若非负定条件被满足，截断在2阶处恰好给出 Fokker–Planck。
+]
 
 // ══════════════════════════════════════════════════════════════════════════════
 = Fokker–Planck 方程与随机微分方程
@@ -257,6 +286,12 @@ $ mu_i^"Itô" = b_i + frac(1, 2) sum_(k, j) sigma_(k j) pdv(sigma_(i j), x_k) $
 
 #note[Stratonovich 在物理噪声问题（Langevin 方程的白噪声极限）中更自然。]
 
+#speaker-note[
+  Itô 公式（链式法则）：$d f(X_t) = f' d X_t + frac(1,2) f'' sigma^2 d t$，多出二阶项。
+  Itô ↔ Stratonovich 换算：$b_i^"Itô" = b_i^"Stra" + frac(1,2) sum_(k j) sigma_(k j) partial_k sigma_(i j)$。
+  物理直觉：Stratonovich 用中点规则，Itô 用左端点规则——对白噪声极限，Stratonovich 给出正确的 Wong–Zakai 极限。
+]
+
 // ══════════════════════════════════════════════════════════════════════════════
 = Fokker–Planck–Landau 方程
 
@@ -293,6 +328,12 @@ $-grad_(bold(v)) dot.op (bold(F)[f] f) + grad_(bold(v)) dot.op (bold(D)[f] grad_
 - $bold(F)[f]$、$bold(D)[f]$ 均是 $f$ 的线性泛函 → *整体方程非线性*
 - 质量、动量、能量守恒；H 定理成立
 - Coulomb 情形 $abs(bold(z))^(-1)$；广义幂次 $abs(bold(z))^gamma$
+
+#speaker-note[
+  Landau 算子是 Boltzmann 算子在掠射极限下的渐近形式（Coulomb 对数 $ln Lambda$ 作为截断参数）。
+  FP 结构：将积分算子展开——零阶项消失（动量守恒），一阶给漂移，二阶给扩散。
+  非线性性：$bold(F)[f]$ 和 $bold(D)[f]$ 是 $f$ 的卷积型线性泛函，但整体 $Q_L(f,f)$ 是 $f$ 的双线性算子。
+]
 
 // ══════════════════════════════════════════════════════════════════════════════
 = 方程族关系总览 <touying:hidden>
