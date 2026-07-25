@@ -30,6 +30,7 @@ jobs:
         run: |
           mkdir -p _site
           cp boltzmann.pdf _site/
+          printf '<meta http-equiv="refresh" content="0;url=boltzmann.pdf">' > _site/index.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
